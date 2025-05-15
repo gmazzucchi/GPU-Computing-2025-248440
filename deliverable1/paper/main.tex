@@ -1,0 +1,259 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% Packages
+\usepackage{cite}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{caption}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+\usepackage{verbatim}
+\usepackage{multirow}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{Parallelization Strategies for SpMV \\
+\footnotesize \textit{Giacomo Mazzucchi: Mat: 248440, \texttt{giacomo.mazzucchi@studenti.unitn.it}, \\GitRepo: \texttt{https://github.com/gmazzucchi/GPU-Computing-2025-248440}}}
+
+\maketitle
+
+\begin{abstract}
+The sparse matrix-dense vector multiplication (SpMV) is a common linear algebra operation involving a sparse matrix and a dense vector. SpMV is widely used in many real-world applications such as Finite Element Analysis (large sparse stiffness matrices multiply with displacement vectors to simulate structural behavior).
+
+This deliverable discusses two main parallelization strategies on GPU with CUDA, using a baseline version on CPU and an optimized version using OpenMP. Results show that the thread-per-row strategy is preferable for very sparse matrices, on the other hand, the warp-per-row strategy becomes more effective as the matrix becomes moderately dense.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Sparse Matrix, SpMV, CUDA, Parallelization, Storage Format
+\end{IEEEkeywords}
+
+\section{Introduction}
+Sparse Matrix-Vector Multiplication (SpMV) is a key operation used in many areas like scientific computing, machine learning, and engineering. It involves \textbf{multiplying a sparse matrix}—a matrix mostly filled with zeros—\textbf{with a dense vector}. Because storing and computing all the zeros would be wasteful, special formats are used to store only the non-zero values. SpMV is at the core of many algorithms, such as solving large systems of equations or analyzing graphs.
+
+The idea behind SpVM is simple, however the parallelization on GPU is not trivial. One major issue is that the \textbf{non-zero entries in the matrix are not placed regularly}: this is a problem for parallelization, because it means irregular memory access patterns. Moreover, different rows of the matrix can have very different numbers of non-zero elements, so divide the computational cost evenly among threads is difficult. Some threads end up doing a lot more work than others, which slows down everything. Another challenge is avoiding conflicts when multiple threads try to \textbf{write to the same location in memory}. Depending on the chosen algorithm, this can require extra steps like synchronization or the use of atomic operations, which can reduce performance.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.95\linewidth]{SmVM.png}
+    \caption{Sparse Vector Matrix Multiplication example}
+    \label{fig:spvmexample}
+\end{figure}
+
+\section{Problem Statement}
+\subsection{Storage Format}
+
+In this work, the assigned compression technique for sparse matrices is the \textbf{Compressed Sparse Row (CSR)} format. This format offers an efficient way to store and operate on sparse matrices by saving only the non-zero entries, thereby significantly reducing memory usage and computational overhead. 
+
+CSR uses three one-dimensional arrays:
+\begin{itemize}
+    \item \texttt{values}: stores the non-zero elements of the matrix in row-major order.
+    \item \texttt{col\_indices}: stores the column indices corresponding to each non-zero value.
+    \item \texttt{row\_ptr}: an array of length $n+1$ (where $n$ is the number of rows), indicating the index in \texttt{values} where each row starts.
+\end{itemize}
+
+This layout allows constant-time row access and supports efficient implementation of sparse matrix-vector multiplication (SpMV), a fundamental operation in many scientific and engineering applications.
+
+Consider the following sparse matrix $A$:
+\[
+A = \begin{bmatrix}
+    10 & 0  & 0  & 0  \\ 
+    0  & 0  & 0  & 20 \\
+    0  & 30 & 0  & 40 \\
+    50 & 60 & 70 & 0
+\end{bmatrix}
+\]
+
+Its representation in CSR format is:
+\begin{align*}
+\texttt{values}      &= [10,\ 20,\ 30,\ 40,\ 50,\ 60,\ 70] \\
+\texttt{col\_indices} &= [0,\ 3,\ 1,\ 3,\ 0,\ 1,\ 2] \\
+\texttt{row\_ptr}     &= [0,\ 1,\ 2,\ 4,\ 7]
+\end{align*}
+
+\noindent Each entry in \texttt{row\_ptr} points to the starting index in \texttt{values} for the corresponding row. For example, the third row ($i=2$) starts at index 2 and ends at index 4 in the \texttt{values} array, meaning it contains two non-zero elements: $30$ in column $1$ and $40$ in column $3$.
+
+\vspace{0.5em}
+\noindent\textbf{Comparison with COO format.} Had we used the Coordinate (COO) format, we would have needed to store:
+\begin{align*}
+\texttt{row}    &= [0,\ 1,\ 2,\ 2,\ 3,\ 3,\ 3] \\
+\texttt{col}    &= [0,\ 3,\ 1,\ 3,\ 0,\ 1,\ 2] \\
+\texttt{values} &= [10,\ 20,\ 30,\ 40,\ 50,\ 60,\ 70]
+\end{align*}
+
+While COO is simpler to construct, it requires storing an additional array of the same size as the non-zero count to keep track of the row indices, increasing memory usage. CSR is thus more space-efficient and enables better performance for row-wise operations such as SpMV.
+
+\subsection{Parallelization}
+
+First of all I implemented an approach to parallelize the operation on CPU using \textbf{OpenMP}, simply adding the \texttt{\#pragma omp parallel for} directive. This directive tells the compiler to create threads before the loop and to destroy them after, effectively parallelizing the content of the loop.
+
+Then I parallelized SpMV in \textbf{CUDA} using two strategies: \textbf{thread-per-row} and \textbf{warp-per-row}. In the first method, each thread computes a row's dot product. The warp-per-row strategy is instead an approach that allocates a warp (32 threads) to each row, improving load balancing and memory coalescing through parallel reduction of partial sums.
+
+\section{State of the Art}
+
+SpVM is a classic problem in parallel computing, and it is challenging due to irregular memory access and work imbalance. To address this, several formats and techniques have been proposed. Chen et al.\ developed the ESB format, which groups nonzeros into blocks based on matrix structure. This improves memory access and GPU utilization~\cite{chen2017esb}. Kourtis et al.\ proposed combining different optimization steps like compressing indices and reordering rows to better use memory and threads. Their method works well across different GPUs~\cite{kourtis2016optimizing}. Liu and Vinter introduced CSR5, a version of the CSR format that splits the matrix into small tiles and adds metadata to help each GPU thread work more efficiently. CSR5 improves parallelism and reduces waiting time between threads~\cite{liu2015csr5}. These formats aim to make SpMV faster by making better use of GPU memory bandwidth and computing power.
+
+\section{Methodology and Contributions}\label{sec:methodology}
+
+My work was divided into three steps: first I reasoned about a parallelization strategy, then I applied it to a varied dataset, and finally I drew conclusions by capturing similarities among matrices of similar types.
+
+I used the MMIO library~\cite{matrixmarketmmio} to parse matrices in Matrix Market format and the Eigen library to verify the correctness of the results, both for the baseline CPU implementation and for the GPU-parallelized versions of the sparse matrix-vector multiplication algorithm. To measure how long CUDA kernels take to run, I used a function called \texttt{profile\_kernel}, that uses CUDA events to profile the kernels.
+
+Regarding the actual kernel function, the SpMV using Thread-per-Row parallelization assigns one CUDA thread to each matrix row. Each thread computes the dot product between that row's non-zero elements and the input vector, storing the result in the output vector.
+\begin{algorithm}[ht]
+    \caption{SpMV using Thread-per-Row parallelization}
+    \begin{algorithmic}[1]
+    \Procedure{spmv\_thread\_per\_row}{$rows$, $col\_idx$, $values$, $x$, $y$, $num\_rows$}
+        \State $row \gets blockIdx_x \cdot blockDim_x + threadIdx_x$
+        \If{$row < num\_rows$}
+            \State $dot \gets 0.0$
+            \For{$j \gets rows[row]$ to $rows[row + 1] - 1$}
+                \State $dot \gets dot + values[j] \cdot x[col\_idx[j]]$
+            \EndFor
+            \State $y[row] \gets dot$
+        \EndIf
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+Parallelization using Warp-per-Row, on other hand, maps one warp (32 threads) to each matrix row. Each thread computes partial dot products by iterating over different elements of the row. The partial results are then summed using intra-warp shuffle reduction. Finally, thread 0 in each warp writes the result to the output vector.
+
+\begin{algorithm}[ht]
+\caption{SpMV using Warp-per-Row parallelization}
+\begin{algorithmic}[1]
+\Procedure{spmv\_warp\_per\_row}{$rows$, $col\_idx$, $values$, $x$, $y$, $num\_rows$}
+    \State $warp\_id \gets \left(blockIdx_x \cdot blockDim_x + threadIdx_x\right) / 32$
+    \State $lane \gets threadIdx_x \bmod 32$
+    \If{$warp\_id < num\_rows$}
+        \State $rs \gets rows[warp\_id]$
+        \State $row\_end \gets rows[warp\_id + 1]$
+        \State $sum \gets 0.0$
+        \For{$j \gets rs + lane$ to $row\_end - 1$ step $32$}
+            \State $sum \gets sum + values[j] \cdot x[col\_idx[j]]$
+        \EndFor
+        \Comment{Intra-warp reduction}
+        \For{$offset \gets 16$ to $1$ step $/2$}
+            \State $sum \gets sum + \texttt{shfl\_down}(sum, offset)$
+        \EndFor
+        \If{$lane = 0$}
+            \State $y[warp\_id] \gets sum$
+        \EndIf
+    \EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+\twocolumn[
+\begin{center}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lrrrrcrrrr}
+\toprule
+\textbf{Dataset} & \textbf{Rows} & \textbf{Columns} & \textbf{Non Zeros} & \textbf{Symmetric} & \textbf{Typology} & \textbf{COO to CSR} & \textbf{Naive CPU} & \textbf{Thread/Row} & \textbf{Warp/Row} \\
+ & & & & & & \textbf{Conv. Time} & \textbf{Exec. Time} & \textbf{Exec. Time} & \textbf{Exec. Time} \\
+\midrule
+pkustk14 & 151926 & 151926 & 7494215 & \cmark & structural & 213.45 & 80.83 & 76.38 & 13.21 \\
+wiki-Talk & 2394385 & 2394385 & 5021410 & \xmark & graph & 98.03 & 123.19 & 47.39 & 62.10 \\
+cage14 & 1505785 & 1505785 & 27130349 & \xmark & graph & 414.42 & 137.78 & 73.73 & 62.51 \\
+rajat31 & 4690002 & 4690002 & 20316253 & \xmark & circuit & 300.35 & 105.57 & 29.70 & 130.73 \\
+bcsstk13 & 2003 & 2003 & 42943 & \cmark & fluid & 1.22 & 0.45 & 0.67 & 0.10 \\
+af23560 & 23560 & 23560 & 484256 & \xmark & fluid & 7.59 & 1.82 & 1.32 & 0.78 \\
+neos3 & 512209 & 518832 & 2055024 & \xmark & optimization & 41.14 & 15.34 & 3.19 & 12.22 \\
+ins2 & 309412 & 309412 & 1530448 & \cmark & optimization & 48.62 & 12.74 & 74.56 & 11.46 \\
+helm2d03 & 392257 & 392257 & 1567096 & \cmark & 2D/3D PDE & 52.22 & 16.74 & 84.53 & 10.49 \\
+great-britain\_osm & 7733822 & 7733822 & 8156517 & \cmark & graph & 323.98 & 263.01 & 28.53 & 186.68 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\captionof{table}{Dataset characteristics and SpMV execution times (in milliseconds).}
+\label{tab:dataset_characteristics}
+\end{center}
+\vspace{1em}
+]
+
+\section{System Description and Experimental Set-up}
+
+\subsection{System Description}
+
+As the University cluster has been inaccessible for a long time, and intermittently at that, I used also the GPU available on my Ubuntu 22.04 Linux system to work regularly on the project.
+
+\begin{table}[ht]
+    \centering
+    \begin{adjustbox}{width=\columnwidth}
+    \begin{tabular}{lllrl}
+    \toprule
+    \textbf{System} &  \textbf{Processor} & \textbf{Cores per Socket} & \textbf{RAM} & \textbf{Accelerator} \\
+    \midrule
+        University cluster & 128 x AMD EPYC 9334 32-Core Processor & 64 at 3.910 Ghz & 16 GB & NVIDIA L40S \\
+        Personal Computer &  Intel Core i7-4800MQ & 8 at 3.70 GHz & 16 GB & NVIDIA GeForce GT 730M \\
+    \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+    \vspace{1em}
+    
+    \caption{System details}
+    \label{tab:system_description}
+\end{table}
+
+\subsection{Dataset description}
+
+I used around twenty matrices downloaded from \texttt{https://sparse.tamu.edu/} and converted them into CSR format. The matrices were selected to cover a wide range of types and sizes, in order to test the performance of GPU implementations. In particular, the most interesting matrices are pkustk14, cage14, wiki-Talk, and great-britain\_osm. The first two are relatively dense, with a high ratio of nonzeros to total elements. On the other hand, the latter two are especially sparse. The results will show significant performance differences between these cases.
+
+
+% \ref{fig:exectimeimg}
+% \ref{fig:throughputimg}
+% \ref{fig:gflopsimg}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{execution_time.png}
+    \caption{Execution Time}
+    \label{fig:exectimeimg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{throughput.png}
+    \caption{Memory Throughput}
+    \label{fig:throughputimg}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\linewidth]{GFLOPS.png}
+    \caption{GFLOPS}
+    \label{fig:gflopsimg}
+\end{figure}
+
+
+\section{Experimental Results}
+% Present and discuss results. Include plots and tables when required (like Figure \ref{fig:enter-label}). Do not simply describe the figures; criticise the achieved results by underlining how they confirm/differ from the expected outcomes described in Section \ref{sec:methodology}.
+Results show that the \textbf{thread-per-row strategy is preferable for very sparse matrices}, where the number of non-zero elements per row is low. In this case, assigning one thread per row ensures that each thread performs a small and roughly balanced amount of work, avoiding minimizing idle threads. The memory access pattern also remains simple and well-distributed across threads.
+
+On the other hand, the \textbf{warp-per-row strategy becomes more effective as the matrix becomes moderately dense}, i.e., with a higher average number of non-zero entries per row. In these cases, a single thread in the thread-per-row model would accumulate too much work, causing load imbalance and longer execution times. By assigning an entire warp (32 threads) to process one row collaboratively, the workload is distributed among threads, leading to better use of GPU resources and faster computation.
+
+The situation is \textbf{much more complex for OpenMP}, where no clear correlation emerges between matrix types and performance. Results are likely influenced by the specific structure and content of each matrix. Moreover, since OpenMP dynamically manages the number and organization of threads, assuming definitive conclusions becomes even more difficult.
+
+\section{Conclusions}
+
+The checks using the Eigen library verify the correctness of the algorithms. The GPU implementations significantly improve performance on matrices with a high number of nonzeros, while performance tends to converge on smaller matrices, where the GPU overhead is greater than the computational gain of parallelism.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
+

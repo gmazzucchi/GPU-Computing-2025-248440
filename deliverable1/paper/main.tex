@@ -239,6 +239,7 @@ I used around twenty matrices downloaded from \texttt{https://sparse.tamu.edu/} 
     \label{fig:gflopsimg}
 \end{figure}
 
+\newpage
 
 \section{Experimental Results}
 % Present and discuss results. Include plots and tables when required (like Figure \ref{fig:enter-label}). Do not simply describe the figures; criticise the achieved results by underlining how they confirm/differ from the expected outcomes described in Section \ref{sec:methodology}.
@@ -250,7 +251,7 @@ The situation is \textbf{much more complex for OpenMP}, where no clear correlati
 
 \section{Conclusions}
 
-The checks using the Eigen library verify the correctness of the algorithms. The GPU implementations significantly improve performance on matrices with a high number of nonzeros, while performance tends to converge on smaller matrices, where the GPU overhead is greater than the computational gain of parallelism.
+Using a few parallelization strategies (one simple one on the CPU and two more complex ones on the GPU), it is possible to improve performance, with results that follow logical analysis. \textbf{Checks with Eigen ensure that the developed algorithms are correct}. Since reading the matrix from input allows one to determine whether it is relatively dense or very sparse, it is possible to choose which GPU algorithm to use at runtime, therefore \textbf{improving performance in all cases}.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

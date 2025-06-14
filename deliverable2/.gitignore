@@ -1,0 +1,6 @@
+build/**
+gmon.out
+dataset/**
+big_dataset/**
+logs/**
+dataset_small/**

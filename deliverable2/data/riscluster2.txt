@@ -1,0 +1,607 @@
+{
+"dataset/TSOPF_RS_b2383/TSOPF_RS_b2383.mtx": {
+"csr_conversion_time": 135.072,
+"thread_per_row_baseline_executiontime": 0.477112,
+"thread_per_row_baseline_throughput": 408.005,
+"thread_per_row_baseline_performance": 67.7877,
+"warp_per_row_baseline_executiontime": 0.257527,
+"warp_per_row_baseline_throughput": 755.896,
+"warp_per_row_baseline_performance": 125.588,
+"cusparse_executiontime": 0.316854,
+"cusparse_throughput": 614.365,
+"cusparse_performance": 102.073,
+"thread_per_row_optimized_executiontime": 2.20908,
+"thread_per_row_optimized_throughput": 88.1198,
+"thread_per_row_optimized_performance": 14.6406,
+"warp_per_row_shared_memory_executiontime": 0.0124028,
+"warp_per_row_shared_memory_throughput": 15695.1,
+"warp_per_row_shared_memory_performance": 2607.66,
+},
+Generating '/tmp/nsys-report-084c.qdstrm'
+
+[1/1] [0%                          ] TSOPF_RS_b2383.nsys-rep
+[1/1] [0%                          ] TSOPF_RS_b2383.nsys-rep
+[1/1] [===========50%              ] TSOPF_RS_b2383.nsys-rep
+[1/1] [========================100%] TSOPF_RS_b2383.nsys-rep
+[1/1] [========================99% ] TSOPF_RS_b2383.nsys-rep
+[1/1] [========================100%] TSOPF_RS_b2383.nsys-rep
+[1/1] [======33%                   ] TSOPF_RS_b2383.nsys-rep
+[1/1] [=======================93%  ] TSOPF_RS_b2383.nsys-rep
+[1/1] [===========52%              ] TSOPF_RS_b2383.nsys-rep
+[1/1] [==============61%           ] TSOPF_RS_b2383.nsys-rep
+[1/1] [================71%         ] TSOPF_RS_b2383.nsys-rep
+[1/1] [===================80%      ] TSOPF_RS_b2383.nsys-rep
+[1/1] [======================90%   ] TSOPF_RS_b2383.nsys-rep
+[1/1] [========================98% ] TSOPF_RS_b2383.nsys-rep
+[1/1] [========================99% ] TSOPF_RS_b2383.nsys-rep
+[1/1] [========================100%] TSOPF_RS_b2383.nsys-rep
+[1/1] [========================100%] TSOPF_RS_b2383.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/TSOPF_RS_b2383.nsys-rep
+"dataset/af23560/af23560.mtx": {
+"csr_conversion_time": 4.51674,
+"thread_per_row_baseline_executiontime": 0.0193799,
+"thread_per_row_baseline_throughput": 319.301,
+"thread_per_row_baseline_performance": 49.975,
+"warp_per_row_baseline_executiontime": 0.0237132,
+"warp_per_row_baseline_throughput": 260.953,
+"warp_per_row_baseline_performance": 40.8427,
+"cusparse_executiontime": 0.0474301,
+"cusparse_throughput": 130.466,
+"cusparse_performance": 20.4198,
+"thread_per_row_optimized_executiontime": 0.0394625,
+"thread_per_row_optimized_throughput": 156.808,
+"thread_per_row_optimized_performance": 24.5426,
+"warp_per_row_shared_memory_executiontime": 0.0137079,
+"warp_per_row_shared_memory_throughput": 451.42,
+"warp_per_row_shared_memory_performance": 70.6534,
+},
+Generating '/tmp/nsys-report-e209.qdstrm'
+
+[1/1] [0%                          ] af23560.nsys-rep
+[1/1] [0%                          ] af23560.nsys-rep
+[1/1] [===========50%              ] af23560.nsys-rep
+[1/1] [========================100%] af23560.nsys-rep
+[1/1] [======33%                   ] af23560.nsys-rep
+[1/1] [=======================93%  ] af23560.nsys-rep
+[1/1] [===========51%              ] af23560.nsys-rep
+[1/1] [=================73%        ] af23560.nsys-rep
+[1/1] [=================74%        ] af23560.nsys-rep
+[1/1] [==================75%       ] af23560.nsys-rep
+[1/1] [==================76%       ] af23560.nsys-rep
+[1/1] [======================90%   ] af23560.nsys-rep
+[1/1] [=======================93%  ] af23560.nsys-rep
+[1/1] [=======================96%  ] af23560.nsys-rep
+[1/1] [========================100%] af23560.nsys-rep
+[1/1] [========================100%] af23560.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/af23560.nsys-rep
+"dataset/bcsstk13/bcsstk13.mtx": {
+"csr_conversion_time": 0.873403,
+"thread_per_row_baseline_executiontime": 0.14829,
+"thread_per_row_baseline_throughput": 7.16621,
+"thread_per_row_baseline_performance": 1.15835,
+"warp_per_row_baseline_executiontime": 0.0186575,
+"warp_per_row_baseline_throughput": 56.9573,
+"warp_per_row_baseline_performance": 9.2066,
+"cusparse_executiontime": 0.031934,
+"cusparse_throughput": 33.2774,
+"cusparse_performance": 5.37897,
+"thread_per_row_optimized_executiontime": 0.176878,
+"thread_per_row_optimized_throughput": 6.00799,
+"thread_per_row_optimized_performance": 0.971134,
+"warp_per_row_shared_memory_executiontime": 0.0346314,
+"warp_per_row_shared_memory_throughput": 30.6854,
+"warp_per_row_shared_memory_performance": 4.96,
+},
+Generating '/tmp/nsys-report-1533.qdstrm'
+
+[1/1] [0%                          ] bcsstk13.nsys-rep
+[1/1] [0%                          ] bcsstk13.nsys-rep
+[1/1] [===========50%              ] bcsstk13.nsys-rep
+[1/1] [========================100%] bcsstk13.nsys-rep
+[1/1] [======33%                   ] bcsstk13.nsys-rep
+[1/1] [=======================93%  ] bcsstk13.nsys-rep
+[1/1] [==============64%           ] bcsstk13.nsys-rep
+[1/1] [===================79%      ] bcsstk13.nsys-rep
+[1/1] [===================80%      ] bcsstk13.nsys-rep
+[1/1] [===================81%      ] bcsstk13.nsys-rep
+[1/1] [===================82%      ] bcsstk13.nsys-rep
+[1/1] [====================85%     ] bcsstk13.nsys-rep
+[1/1] [=====================86%    ] bcsstk13.nsys-rep
+[1/1] [======================91%   ] bcsstk13.nsys-rep
+[1/1] [=======================96%  ] bcsstk13.nsys-rep
+[1/1] [========================100%] bcsstk13.nsys-rep
+[1/1] [========================100%] bcsstk13.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/bcsstk13.nsys-rep
+"dataset/cage14/cage14.mtx": {
+"csr_conversion_time": 215.993,
+"thread_per_row_baseline_executiontime": 0.878724,
+"thread_per_row_baseline_throughput": 397.914,
+"thread_per_row_baseline_performance": 61.7494,
+"warp_per_row_baseline_executiontime": 1.32643,
+"warp_per_row_baseline_throughput": 263.607,
+"warp_per_row_baseline_performance": 40.9072,
+"cusparse_executiontime": 0.748419,
+"cusparse_throughput": 467.194,
+"cusparse_performance": 72.5004,
+"thread_per_row_optimized_executiontime": 2.26682,
+"thread_per_row_optimized_throughput": 154.25,
+"thread_per_row_optimized_performance": 23.9369,
+"warp_per_row_shared_memory_executiontime": 0.0666765,
+"warp_per_row_shared_memory_throughput": 5244.08,
+"warp_per_row_shared_memory_performance": 813.791,
+},
+Generating '/tmp/nsys-report-88b0.qdstrm'
+
+[1/1] [0%                          ] cage14.nsys-rep
+[1/1] [0%                          ] cage14.nsys-rep
+[1/1] [===========50%              ] cage14.nsys-rep
+[1/1] [========================100%] cage14.nsys-rep
+[1/1] [======33%                   ] cage14.nsys-rep
+[1/1] [=======================93%  ] cage14.nsys-rep
+[1/1] [===========51%              ] cage14.nsys-rep
+[1/1] [============57%             ] cage14.nsys-rep
+[1/1] [==============63%           ] cage14.nsys-rep
+[1/1] [================69%         ] cage14.nsys-rep
+[1/1] [==================75%       ] cage14.nsys-rep
+[1/1] [===================81%      ] cage14.nsys-rep
+[1/1] [=====================87%    ] cage14.nsys-rep
+[1/1] [=======================93%  ] cage14.nsys-rep
+[1/1] [========================98% ] cage14.nsys-rep
+[1/1] [========================99% ] cage14.nsys-rep
+[1/1] [========================100%] cage14.nsys-rep
+[1/1] [========================100%] cage14.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/cage14.nsys-rep
+"dataset/cont11_l/cont11_l.mtx": {
+"csr_conversion_time": 54.1497,
+"thread_per_row_baseline_executiontime": 0.15281,
+"thread_per_row_baseline_throughput": 602.289,
+"thread_per_row_baseline_performance": 70.4533,
+"warp_per_row_baseline_executiontime": 1.19626,
+"warp_per_row_baseline_throughput": 76.9362,
+"warp_per_row_baseline_performance": 8.99969,
+"cusparse_executiontime": 0.285839,
+"cusparse_throughput": 321.985,
+"cusparse_performance": 37.6646,
+"thread_per_row_optimized_executiontime": 0.199721,
+"thread_per_row_optimized_throughput": 460.823,
+"thread_per_row_optimized_performance": 53.9052,
+"warp_per_row_shared_memory_executiontime": 0.0640672,
+"warp_per_row_shared_memory_throughput": 1436.55,
+"warp_per_row_shared_memory_performance": 168.042,
+},
+Generating '/tmp/nsys-report-7930.qdstrm'
+
+[1/1] [0%                          ] cont11_l.nsys-rep
+[1/1] [0%                          ] cont11_l.nsys-rep
+[1/1] [===========50%              ] cont11_l.nsys-rep
+[1/1] [========================100%] cont11_l.nsys-rep
+[1/1] [======33%                   ] cont11_l.nsys-rep
+[1/1] [=======================93%  ] cont11_l.nsys-rep
+[1/1] [13%                         ] cont11_l.nsys-rep
+[1/1] [============56%             ] cont11_l.nsys-rep
+[1/1] [============57%             ] cont11_l.nsys-rep
+[1/1] [====================83%     ] cont11_l.nsys-rep
+[1/1] [=======================95%  ] cont11_l.nsys-rep
+[1/1] [=======================96%  ] cont11_l.nsys-rep
+[1/1] [========================99% ] cont11_l.nsys-rep
+[1/1] [========================100%] cont11_l.nsys-rep
+[1/1] [========================100%] cont11_l.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/cont11_l.nsys-rep
+"dataset/great-britain_osm/great-britain_osm.mtx": {
+"csr_conversion_time": 194.562,
+"thread_per_row_baseline_executiontime": 0.578518,
+"thread_per_row_baseline_throughput": 552.269,
+"thread_per_row_baseline_performance": 56.3959,
+"warp_per_row_baseline_executiontime": 6.17474,
+"warp_per_row_baseline_throughput": 51.7427,
+"warp_per_row_baseline_performance": 5.2838,
+"cusparse_executiontime": 0.909808,
+"cusparse_throughput": 351.17,
+"cusparse_performance": 35.8604,
+"thread_per_row_optimized_executiontime": 0.826589,
+"thread_per_row_optimized_throughput": 386.525,
+"thread_per_row_optimized_performance": 39.4707,
+"warp_per_row_shared_memory_executiontime": 0.324579,
+"warp_per_row_shared_memory_throughput": 984.346,
+"warp_per_row_shared_memory_performance": 100.518,
+},
+Generating '/tmp/nsys-report-71d1.qdstrm'
+
+[1/1] [0%                          ] great-britain_osm.nsys-rep
+[1/1] [0%                          ] great-britain_osm.nsys-rep
+[1/1] [===========52%              ] great-britain_osm.nsys-rep
+[1/1] [==============61%           ] great-britain_osm.nsys-rep
+[1/1] [================71%         ] great-britain_osm.nsys-rep
+[1/1] [===================80%      ] great-britain_osm.nsys-rep
+[1/1] [=====================89%    ] great-britain_osm.nsys-rep
+[1/1] [=======================96%  ] great-britain_osm.nsys-rep
+[1/1] [========================99% ] great-britain_osm.nsys-rep
+[1/1] [========================100%] great-britain_osm.nsys-rep
+[1/1] [========================100%] great-britain_osm.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/great-britain_osm.nsys-rep
+"dataset/helm2d03/helm2d03.mtx": {
+"csr_conversion_time": 28.0864,
+"thread_per_row_baseline_executiontime": 32.2354,
+"thread_per_row_baseline_throughput": 1.36143,
+"thread_per_row_baseline_performance": 0.194456,
+"warp_per_row_baseline_executiontime": 2.485,
+"warp_per_row_baseline_throughput": 17.6605,
+"warp_per_row_baseline_performance": 2.52248,
+"cusparse_executiontime": 0.107067,
+"cusparse_throughput": 409.897,
+"cusparse_performance": 58.5465,
+"thread_per_row_optimized_executiontime": 33.834,
+"thread_per_row_optimized_throughput": 1.29711,
+"thread_per_row_optimized_performance": 0.185269,
+"warp_per_row_shared_memory_executiontime": 1.64161,
+"warp_per_row_shared_memory_throughput": 26.7338,
+"warp_per_row_shared_memory_performance": 3.81844,
+},
+Generating '/tmp/nsys-report-2560.qdstrm'
+
+[1/1] [0%                          ] helm2d03.nsys-rep
+[1/1] [0%                          ] helm2d03.nsys-rep
+[1/1] [===========50%              ] helm2d03.nsys-rep
+[1/1] [========================100%] helm2d03.nsys-rep
+[1/1] [======33%                   ] helm2d03.nsys-rep
+[1/1] [=======================93%  ] helm2d03.nsys-rep
+[1/1] [==18%                       ] helm2d03.nsys-rep
+[1/1] [=============58%            ] helm2d03.nsys-rep
+[1/1] [=============59%            ] helm2d03.nsys-rep
+[1/1] [=====================87%    ] helm2d03.nsys-rep
+[1/1] [=====================88%    ] helm2d03.nsys-rep
+[1/1] [========================98% ] helm2d03.nsys-rep
+[1/1] [========================100%] helm2d03.nsys-rep
+[1/1] [========================100%] helm2d03.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/helm2d03.nsys-rep
+"dataset/ins2/ins2.mtx": {
+"csr_conversion_time": 27.0029,
+"thread_per_row_baseline_executiontime": 31.9983,
+"thread_per_row_baseline_throughput": 1.30261,
+"thread_per_row_baseline_performance": 0.191316,
+"warp_per_row_baseline_executiontime": 2.23866,
+"warp_per_row_baseline_throughput": 18.6189,
+"warp_per_row_baseline_performance": 2.73458,
+"cusparse_executiontime": 0.103916,
+"cusparse_throughput": 401.105,
+"cusparse_performance": 58.9108,
+"thread_per_row_optimized_executiontime": 34.2778,
+"thread_per_row_optimized_throughput": 1.21599,
+"thread_per_row_optimized_performance": 0.178593,
+"warp_per_row_shared_memory_executiontime": 1.29739,
+"warp_per_row_shared_memory_throughput": 32.1271,
+"warp_per_row_shared_memory_performance": 4.71855,
+},
+Generating '/tmp/nsys-report-d626.qdstrm'
+
+[1/1] [0%                          ] ins2.nsys-rep
+[1/1] [0%                          ] ins2.nsys-rep
+[1/1] [===========50%              ] ins2.nsys-rep
+[1/1] [========================100%] ins2.nsys-rep
+[1/1] [======33%                   ] ins2.nsys-rep
+[1/1] [=======================93%  ] ins2.nsys-rep
+[1/1] [==19%                       ] ins2.nsys-rep
+[1/1] [=============59%            ] ins2.nsys-rep
+[1/1] [=============60%            ] ins2.nsys-rep
+[1/1] [=====================86%    ] ins2.nsys-rep
+[1/1] [=====================87%    ] ins2.nsys-rep
+[1/1] [========================98% ] ins2.nsys-rep
+[1/1] [========================100%] ins2.nsys-rep
+[1/1] [========================100%] ins2.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/ins2.nsys-rep
+"dataset/neos3/neos3.mtx": {
+"csr_conversion_time": 21.0545,
+"thread_per_row_baseline_executiontime": 0.781153,
+"thread_per_row_baseline_throughput": 42.1283,
+"thread_per_row_baseline_performance": 5.26152,
+"warp_per_row_baseline_executiontime": 0.411466,
+"warp_per_row_baseline_throughput": 79.9789,
+"warp_per_row_baseline_performance": 9.98879,
+"cusparse_executiontime": 0.112581,
+"cusparse_throughput": 292.31,
+"cusparse_performance": 36.5074,
+"thread_per_row_optimized_executiontime": 0.868639,
+"thread_per_row_optimized_throughput": 37.8853,
+"thread_per_row_optimized_performance": 4.7316,
+"warp_per_row_shared_memory_executiontime": 0.0559333,
+"warp_per_row_shared_memory_throughput": 588.355,
+"warp_per_row_shared_memory_performance": 73.4812,
+},
+Generating '/tmp/nsys-report-bb46.qdstrm'
+
+[1/1] [0%                          ] neos3.nsys-rep
+[1/1] [0%                          ] neos3.nsys-rep
+[1/1] [===========50%              ] neos3.nsys-rep
+[1/1] [========================100%] neos3.nsys-rep
+[1/1] [======33%                   ] neos3.nsys-rep
+[1/1] [=======================93%  ] neos3.nsys-rep
+[1/1] [====26%                     ] neos3.nsys-rep
+[1/1] [==============62%           ] neos3.nsys-rep
+[1/1] [==============63%           ] neos3.nsys-rep
+[1/1] [=======================93%  ] neos3.nsys-rep
+[1/1] [=======================95%  ] neos3.nsys-rep
+[1/1] [========================98% ] neos3.nsys-rep
+[1/1] [========================100%] neos3.nsys-rep
+[1/1] [========================100%] neos3.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/neos3.nsys-rep
+"dataset/pkustk14/pkustk14.mtx": {
+"csr_conversion_time": 117.044,
+"thread_per_row_baseline_executiontime": 16.2806,
+"thread_per_row_baseline_throughput": 11.1969,
+"thread_per_row_baseline_performance": 1.84126,
+"warp_per_row_baseline_executiontime": 1.12008,
+"warp_per_row_baseline_throughput": 162.749,
+"warp_per_row_baseline_performance": 26.7632,
+"cusparse_executiontime": 0.347577,
+"cusparse_throughput": 524.465,
+"cusparse_performance": 86.2453,
+"thread_per_row_optimized_executiontime": 14.6265,
+"thread_per_row_optimized_throughput": 12.4631,
+"thread_per_row_optimized_performance": 2.04949,
+"warp_per_row_shared_memory_executiontime": 0.644493,
+"warp_per_row_shared_memory_throughput": 282.845,
+"warp_per_row_shared_memory_performance": 46.5123,
+},
+Generating '/tmp/nsys-report-e738.qdstrm'
+
+[1/1] [0%                          ] pkustk14.nsys-rep
+[1/1] [0%                          ] pkustk14.nsys-rep
+[1/1] [===========50%              ] pkustk14.nsys-rep
+[1/1] [========================100%] pkustk14.nsys-rep
+[1/1] [======33%                   ] pkustk14.nsys-rep
+[1/1] [=======================93%  ] pkustk14.nsys-rep
+[1/1] [6%                          ] pkustk14.nsys-rep
+[1/1] [===========53%              ] pkustk14.nsys-rep
+[1/1] [===============66%          ] pkustk14.nsys-rep
+[1/1] [===================79%      ] pkustk14.nsys-rep
+[1/1] [======================92%   ] pkustk14.nsys-rep
+[1/1] [========================97% ] pkustk14.nsys-rep
+[1/1] [========================99% ] pkustk14.nsys-rep
+[1/1] [========================100%] pkustk14.nsys-rep
+[1/1] [========================100%] pkustk14.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/pkustk14.nsys-rep
+"dataset/rajat31/rajat31.mtx": {
+"csr_conversion_time": 192.32,
+"thread_per_row_baseline_executiontime": 0.601362,
+"thread_per_row_baseline_throughput": 530.189,
+"thread_per_row_baseline_performance": 67.5675,
+"warp_per_row_baseline_executiontime": 3.74244,
+"warp_per_row_baseline_throughput": 85.1944,
+"warp_per_row_baseline_performance": 10.8572,
+"cusparse_executiontime": 0.813872,
+"cusparse_throughput": 391.751,
+"cusparse_performance": 49.9249,
+"thread_per_row_optimized_executiontime": 0.804272,
+"thread_per_row_optimized_throughput": 396.427,
+"thread_per_row_optimized_performance": 50.5209,
+"warp_per_row_shared_memory_executiontime": 0.235004,
+"warp_per_row_shared_memory_throughput": 1356.72,
+"warp_per_row_shared_memory_performance": 172.901,
+},
+Generating '/tmp/nsys-report-fad8.qdstrm'
+
+[1/1] [0%                          ] rajat31.nsys-rep
+[1/1] [0%                          ] rajat31.nsys-rep
+[1/1] [===========50%              ] rajat31.nsys-rep
+[1/1] [========================100%] rajat31.nsys-rep
+[1/1] [======33%                   ] rajat31.nsys-rep
+[1/1] [=======================93%  ] rajat31.nsys-rep
+[1/1] [===========51%              ] rajat31.nsys-rep
+[1/1] [===========52%              ] rajat31.nsys-rep
+[1/1] [=============60%            ] rajat31.nsys-rep
+[1/1] [================68%         ] rajat31.nsys-rep
+[1/1] [==================76%       ] rajat31.nsys-rep
+[1/1] [====================85%     ] rajat31.nsys-rep
+[1/1] [=======================93%  ] rajat31.nsys-rep
+[1/1] [========================97% ] rajat31.nsys-rep
+[1/1] [========================99% ] rajat31.nsys-rep
+[1/1] [========================100%] rajat31.nsys-rep
+[1/1] [========================100%] rajat31.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/rajat31.nsys-rep
+"dataset/sme3Db/sme3Db.mtx": {
+"csr_conversion_time": 16.9099,
+"thread_per_row_baseline_executiontime": 0.179557,
+"thread_per_row_baseline_throughput": 141.67,
+"thread_per_row_baseline_performance": 23.18,
+"warp_per_row_baseline_executiontime": 0.0689547,
+"warp_per_row_baseline_throughput": 368.906,
+"warp_per_row_baseline_performance": 60.3603,
+"cusparse_executiontime": 0.113054,
+"cusparse_throughput": 225.006,
+"cusparse_performance": 36.8154,
+"thread_per_row_optimized_executiontime": 0.563002,
+"thread_per_row_optimized_throughput": 45.1825,
+"thread_per_row_optimized_performance": 7.39274,
+"warp_per_row_shared_memory_executiontime": 0.0172518,
+"warp_per_row_shared_memory_throughput": 1474.5,
+"warp_per_row_shared_memory_performance": 241.257,
+},
+Generating '/tmp/nsys-report-4777.qdstrm'
+
+[1/1] [0%                          ] sme3Db.nsys-rep
+[1/1] [0%                          ] sme3Db.nsys-rep
+[1/1] [===========50%              ] sme3Db.nsys-rep
+[1/1] [========================100%] sme3Db.nsys-rep
+[1/1] [======33%                   ] sme3Db.nsys-rep
+[1/1] [=======================93%  ] sme3Db.nsys-rep
+[1/1] [====25%                     ] sme3Db.nsys-rep
+[1/1] [==============61%           ] sme3Db.nsys-rep
+[1/1] [==============62%           ] sme3Db.nsys-rep
+[1/1] [==============63%           ] sme3Db.nsys-rep
+[1/1] [=======================95%  ] sme3Db.nsys-rep
+[1/1] [=======================96%  ] sme3Db.nsys-rep
+[1/1] [========================98% ] sme3Db.nsys-rep
+[1/1] [========================100%] sme3Db.nsys-rep
+[1/1] [========================100%] sme3Db.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/sme3Db.nsys-rep
+"dataset/torso1/torso1.mtx": {
+"csr_conversion_time": 67.9161,
+"thread_per_row_baseline_executiontime": 1.14793,
+"thread_per_row_baseline_throughput": 90.6474,
+"thread_per_row_baseline_performance": 14.8381,
+"warp_per_row_baseline_executiontime": 0.196382,
+"warp_per_row_baseline_throughput": 529.869,
+"warp_per_row_baseline_performance": 86.7342,
+"cusparse_executiontime": 0.190534,
+"cusparse_throughput": 546.131,
+"cusparse_performance": 89.3962,
+"thread_per_row_optimized_executiontime": 2.56924,
+"thread_per_row_optimized_throughput": 40.5009,
+"thread_per_row_optimized_performance": 6.62959,
+"warp_per_row_shared_memory_executiontime": 0.0313397,
+"warp_per_row_shared_memory_throughput": 3320.27,
+"warp_per_row_shared_memory_performance": 543.495,
+},
+Generating '/tmp/nsys-report-2caa.qdstrm'
+
+[1/1] [0%                          ] torso1.nsys-rep
+[1/1] [0%                          ] torso1.nsys-rep
+[1/1] [===========50%              ] torso1.nsys-rep
+[1/1] [========================100%] torso1.nsys-rep
+[1/1] [========================99% ] torso1.nsys-rep
+[1/1] [========================100%] torso1.nsys-rep
+[1/1] [========================99% ] torso1.nsys-rep
+[1/1] [========================100%] torso1.nsys-rep
+[1/1] [========================99% ] torso1.nsys-rep
+[1/1] [========================100%] torso1.nsys-rep
+[1/1] [======34%                   ] torso1.nsys-rep
+[1/1] [=======================93%  ] torso1.nsys-rep
+[1/1] [9%                          ] torso1.nsys-rep
+[1/1] [============54%             ] torso1.nsys-rep
+[1/1] [=================72%        ] torso1.nsys-rep
+[1/1] [=====================89%    ] torso1.nsys-rep
+[1/1] [========================97% ] torso1.nsys-rep
+[1/1] [========================98% ] torso1.nsys-rep
+[1/1] [========================99% ] torso1.nsys-rep
+[1/1] [========================100%] torso1.nsys-rep
+[1/1] [========================100%] torso1.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/torso1.nsys-rep
+"dataset/trans5/trans5.mtx": {
+"csr_conversion_time": 7.52478,
+"thread_per_row_baseline_executiontime": 9.95158,
+"thread_per_row_baseline_throughput": 1.112,
+"thread_per_row_baseline_performance": 0.154025,
+"warp_per_row_baseline_executiontime": 0.4911,
+"warp_per_row_baseline_throughput": 22.5333,
+"warp_per_row_baseline_performance": 3.12114,
+"cusparse_executiontime": 0.0596961,
+"cusparse_throughput": 185.374,
+"cusparse_performance": 25.6766,
+"thread_per_row_optimized_executiontime": 6.91185,
+"thread_per_row_optimized_throughput": 1.60104,
+"thread_per_row_optimized_performance": 0.221763,
+"warp_per_row_shared_memory_executiontime": 0.540752,
+"warp_per_row_shared_memory_throughput": 20.4643,
+"warp_per_row_shared_memory_performance": 2.83456,
+},
+Generating '/tmp/nsys-report-f8e4.qdstrm'
+
+[1/1] [0%                          ] trans5.nsys-rep
+[1/1] [0%                          ] trans5.nsys-rep
+[1/1] [===========50%              ] trans5.nsys-rep
+[1/1] [========================100%] trans5.nsys-rep
+[1/1] [========================98% ] trans5.nsys-rep
+[1/1] [========================99% ] trans5.nsys-rep
+[1/1] [========================100%] trans5.nsys-rep
+[1/1] [======34%                   ] trans5.nsys-rep
+[1/1] [=======================93%  ] trans5.nsys-rep
+[1/1] [=======39%                  ] trans5.nsys-rep
+[1/1] [================68%         ] trans5.nsys-rep
+[1/1] [================69%         ] trans5.nsys-rep
+[1/1] [================70%         ] trans5.nsys-rep
+[1/1] [=====================87%    ] trans5.nsys-rep
+[1/1] [=====================89%    ] trans5.nsys-rep
+[1/1] [========================97% ] trans5.nsys-rep
+[1/1] [========================100%] trans5.nsys-rep
+[1/1] [========================100%] trans5.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/trans5.nsys-rep
+"dataset/webbase-1M/webbase-1M.mtx": {
+"csr_conversion_time": 33.5699,
+"thread_per_row_baseline_executiontime": 1.10092,
+"thread_per_row_baseline_throughput": 48.3836,
+"thread_per_row_baseline_performance": 5.64171,
+"warp_per_row_baseline_executiontime": 0.792189,
+"warp_per_row_baseline_throughput": 67.2397,
+"warp_per_row_baseline_performance": 7.84039,
+"cusparse_executiontime": 0.167936,
+"cusparse_throughput": 317.184,
+"cusparse_performance": 36.9848,
+"thread_per_row_optimized_executiontime": 1.19932,
+"thread_per_row_optimized_throughput": 44.4137,
+"thread_per_row_optimized_performance": 5.17881,
+"warp_per_row_shared_memory_executiontime": 0.058648,
+"warp_per_row_shared_memory_throughput": 908.24,
+"warp_per_row_shared_memory_performance": 105.904,
+},
+Generating '/tmp/nsys-report-5b71.qdstrm'
+
+[1/1] [0%                          ] webbase-1M.nsys-rep
+[1/1] [0%                          ] webbase-1M.nsys-rep
+[1/1] [===========50%              ] webbase-1M.nsys-rep
+[1/1] [========================100%] webbase-1M.nsys-rep
+[1/1] [======34%                   ] webbase-1M.nsys-rep
+[1/1] [=======================93%  ] webbase-1M.nsys-rep
+[1/1] [==19%                       ] webbase-1M.nsys-rep
+[1/1] [=============59%            ] webbase-1M.nsys-rep
+[1/1] [=============60%            ] webbase-1M.nsys-rep
+[1/1] [=======================94%  ] webbase-1M.nsys-rep
+[1/1] [=======================95%  ] webbase-1M.nsys-rep
+[1/1] [========================98% ] webbase-1M.nsys-rep
+[1/1] [========================100%] webbase-1M.nsys-rep
+[1/1] [========================100%] webbase-1M.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/webbase-1M.nsys-rep
+"dataset/wiki-Talk/wiki-Talk.mtx": {
+"csr_conversion_time": 61.3294,
+"thread_per_row_baseline_executiontime": 15.9776,
+"thread_per_row_baseline_throughput": 6.16907,
+"thread_per_row_baseline_performance": 0.628556,
+"warp_per_row_baseline_executiontime": 0.991146,
+"warp_per_row_baseline_throughput": 99.4476,
+"warp_per_row_baseline_performance": 10.1325,
+"cusparse_executiontime": 0.947445,
+"cusparse_throughput": 104.035,
+"cusparse_performance": 10.5999,
+"thread_per_row_optimized_executiontime": 13.0028,
+"thread_per_row_optimized_throughput": 7.58044,
+"thread_per_row_optimized_performance": 0.772357,
+"warp_per_row_shared_memory_executiontime": 0,
+"warp_per_row_shared_memory_throughput": inf,
+"warp_per_row_shared_memory_performance": inf,
+},
+Generating '/tmp/nsys-report-0f7e.qdstrm'
+
+[1/1] [0%                          ] wiki-Talk.nsys-rep
+[1/1] [0%                          ] wiki-Talk.nsys-rep
+[1/1] [===========50%              ] wiki-Talk.nsys-rep
+[1/1] [========================100%] wiki-Talk.nsys-rep
+[1/1] [========================99% ] wiki-Talk.nsys-rep
+[1/1] [========================100%] wiki-Talk.nsys-rep
+[1/1] [=======36%                  ] wiki-Talk.nsys-rep
+[1/1] [=======================96%  ] wiki-Talk.nsys-rep
+[1/1] [11%                         ] wiki-Talk.nsys-rep
+[1/1] [============55%             ] wiki-Talk.nsys-rep
+[1/1] [============56%             ] wiki-Talk.nsys-rep
+[1/1] [==================78%       ] wiki-Talk.nsys-rep
+[1/1] [======================92%   ] wiki-Talk.nsys-rep
+[1/1] [=======================93%  ] wiki-Talk.nsys-rep
+[1/1] [========================99% ] wiki-Talk.nsys-rep
+[1/1] [========================100%] wiki-Talk.nsys-rep
+[1/1] [========================100%] wiki-Talk.nsys-rep
+Generated:
+    /home/giacomo.mazzucchi/repo/repo/deliverable2/profiling_results/wiki-Talk.nsys-rep
+}

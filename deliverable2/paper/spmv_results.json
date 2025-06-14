@@ -1,0 +1,77 @@
+[
+  {
+    "Dataset": "pkustk14", "Rows": 151926, "Cols": 151926, "NNZ": 7494215, "Sym": true, "Type": "structural",
+    "CSR (ms)": 116.39, "cuSPARSE (ms)": 0.33, "TPR Base (ms)": 16.72, "TPR Opt. (ms)": 14.21,
+    "WPR Base (ms)": 1.07, "WPR Shared (ms)": 0.64
+  },
+  {
+    "Dataset": "cage14", "Rows": 1505785, "Cols": 1505785, "NNZ": 27130349, "Sym": false, "Type": "graph",
+    "CSR (ms)": 214.72, "cuSPARSE (ms)": 0.71, "TPR Base (ms)": 0.85, "TPR Opt. (ms)": 2.22,
+    "WPR Base (ms)": 1.23, "WPR Shared (ms)": 0.06
+  },
+  {
+    "Dataset": "rajat31", "Rows": 4690002, "Cols": 4690002, "NNZ": 20316253, "Sym": false, "Type": "circuit",
+    "CSR (ms)": 190.42, "cuSPARSE (ms)": 0.81, "TPR Base (ms)": 0.60, "TPR Opt. (ms)": 0.81,
+    "WPR Base (ms)": 3.56, "WPR Shared (ms)": 0.22
+  },
+  {
+    "Dataset": "bcsstk13", "Rows": 2003, "Cols": 2003, "NNZ": 42943, "Sym": true, "Type": "fluid",
+    "CSR (ms)": 0.82, "cuSPARSE (ms)": 0.02, "TPR Base (ms)": 0.11, "TPR Opt. (ms)": 0.13,
+    "WPR Base (ms)": 0.01, "WPR Shared (ms)": 0.03
+  },
+  {
+    "Dataset": "trans5", "Rows": 116835, "Cols": 116835, "NNZ": 798312, "Sym": false, "Type": "simulation",
+    "CSR (ms)": 7.52, "cuSPARSE (ms)": 0.05, "TPR Base (ms)": 7.92, "TPR Opt. (ms)": 8.38,
+    "WPR Base (ms)": 0.41, "WPR Shared (ms)": 0.60
+  },
+  {
+    "Dataset": "af23560", "Rows": 23560, "Cols": 23560, "NNZ": 484256, "Sym": false, "Type": "fluid",
+    "CSR (ms)": 4.44, "cuSPARSE (ms)": 0.04, "TPR Base (ms)": 0.02, "TPR Opt. (ms)": 0.04,
+    "WPR Base (ms)": 0.02, "WPR Shared (ms)": 0.01
+  },
+  {
+    "Dataset": "cont11_l", "Rows": 41600, "Cols": 41600, "NNZ": 1965616, "Sym": true, "Type": "optimization",
+    "CSR (ms)": 53.85, "cuSPARSE (ms)": 0.25, "TPR Base (ms)": 0.15, "TPR Opt. (ms)": 0.18,
+    "WPR Base (ms)": 0.98, "WPR Shared (ms)": 0.05
+  },
+  {
+    "Dataset": "sme3Db", "Rows": 472850, "Cols": 472850, "NNZ": 9373548, "Sym": false, "Type": "structural",
+    "CSR (ms)": 17.14, "cuSPARSE (ms)": 0.11, "TPR Base (ms)": 0.18, "TPR Opt. (ms)": 0.57,
+    "WPR Base (ms)": 0.07, "WPR Shared (ms)": 0.02
+  },
+  {
+    "Dataset": "TSOPF_RS_b2383", "Rows": 2383, "Cols": 2383, "NNZ": 60119, "Sym": false, "Type": "power",
+    "CSR (ms)": 129.37, "cuSPARSE (ms)": 0.32, "TPR Base (ms)": 0.48, "TPR Opt. (ms)": 2.23,
+    "WPR Base (ms)": 0.25, "WPR Shared (ms)": 0.01
+  },
+  {
+    "Dataset": "helm2d03", "Rows": 392257, "Cols": 392257, "NNZ": 1567096, "Sym": true, "Type": "2D PDE",
+    "CSR (ms)": 27.88, "cuSPARSE (ms)": 0.10, "TPR Base (ms)": 31.40, "TPR Opt. (ms)": 33.66,
+    "WPR Base (ms)": 2.48, "WPR Shared (ms)": 1.63
+  },
+  {
+    "Dataset": "great-britain_osm", "Rows": 7733822, "Cols": 7733822, "NNZ": 8156517, "Sym": true, "Type": "graph",
+    "CSR (ms)": 186.63, "cuSPARSE (ms)": 0.90, "TPR Base (ms)": 0.58, "TPR Opt. (ms)": 0.83,
+    "WPR Base (ms)": 5.87, "WPR Shared (ms)": 0.31
+  },
+  {
+    "Dataset": "webbase-1M", "Rows": 1000005, "Cols": 1000005, "NNZ": 3105536, "Sym": false, "Type": "web",
+    "CSR (ms)": 32.73, "cuSPARSE (ms)": 0.16, "TPR Base (ms)": 1.12, "TPR Opt. (ms)": 1.20,
+    "WPR Base (ms)": 0.74, "WPR Shared (ms)": 0.06
+  },
+  {
+    "Dataset": "neos3", "Rows": 512209, "Cols": 518832, "NNZ": 2055024, "Sym": false, "Type": "optimization",
+    "CSR (ms)": 20.74, "cuSPARSE (ms)": 0.11, "TPR Base (ms)": 0.79, "TPR Opt. (ms)": 0.88,
+    "WPR Base (ms)": 0.40, "WPR Shared (ms)": 0.06
+  },
+  {
+    "Dataset": "ins2", "Rows": 309412, "Cols": 309412, "NNZ": 1530448, "Sym": true, "Type": "optimization",
+    "CSR (ms)": 27.03, "cuSPARSE (ms)": 0.10, "TPR Base (ms)": 33.06, "TPR Opt. (ms)": 34.38,
+    "WPR Base (ms)": 2.26, "WPR Shared (ms)": 1.29
+  },
+  {
+    "Dataset": "torso1", "Rows": 116158, "Cols": 116158, "NNZ": 8516501, "Sym": false, "Type": "biomedical",
+    "CSR (ms)": 67.24, "cuSPARSE (ms)": 0.19, "TPR Base (ms)": 1.14, "TPR Opt. (ms)": 2.68,
+    "WPR Base (ms)": 0.19, "WPR Shared (ms)": 0.03
+  }
+]

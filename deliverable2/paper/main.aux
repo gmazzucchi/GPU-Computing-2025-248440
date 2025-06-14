@@ -1,0 +1,67 @@
+\relax 
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {II}Problem Statement}{1}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-A}}Storage Format}{1}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Sparse Vector Matrix Multiplication example\relax }}{1}{}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:spvmexample}{{1}{1}}
+\citation{chen2009esb}
+\citation{kourtis2008csrp}
+\citation{liu2015csr5}
+\citation{bell2008efficient}
+\citation{anzt2017designing}
+\citation{madduri2019spmv}
+\citation{matrixmarketmmio}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-B}}Parallelization}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {II-C}}Optimizations}{2}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces CUDA Memory Diagram\relax }}{2}{}\protected@file@percent }
+\newlabel{fig:spvmexample}{{2}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}State of the Art}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Methodology and Contributions}{2}{}\protected@file@percent }
+\newlabel{sec:methodology}{{IV}{2}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces SpMV using Thread-per-Row parallelization\relax }}{3}{}\protected@file@percent }
+\newlabel{simplethread}{{1}{3}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {2}{\ignorespaces SpMV using Warp-per-Row parallelization\relax }}{3}{}\protected@file@percent }
+\newlabel{simplewarp}{{2}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-A}}Thread-per-Row with Loop Unrolling and \texttt  {\_\_ldg()} Read-Only Cache}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-B}}Warp-per-Row with Shared Memory Caching}{3}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {IV-C}}Profiling}{3}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Screenshot from the nsys analysis\relax }}{3}{}\protected@file@percent }
+\newlabel{fig:spvmexample}{{3}{3}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {3}{\ignorespaces Thread-per-Row SpMV with Loop Unrolling and Read-Only Cache\relax }}{4}{}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {4}{\ignorespaces Warp-per-Row SpMV with Shared Memory Tiling\relax }}{4}{}\protected@file@percent }
+\newlabel{fig:exectimeimg}{{4a}{5}}
+\newlabel{sub@fig:exectimeimg}{{a}{5}}
+\newlabel{fig:throughputimg}{{4b}{5}}
+\newlabel{sub@fig:throughputimg}{{b}{5}}
+\newlabel{fig:gflopsimg}{{4c}{5}}
+\newlabel{sub@fig:gflopsimg}{{c}{5}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Comparison of execution time, memory throughput, and performance (GFLOPS) across different SpMV implementations.\relax }}{5}{}\protected@file@percent }
+\newlabel{fig:all_metrics_vertical}{{4}{5}}
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Dataset characteristics and SpMV execution times (in milliseconds) for various CUDA implementations.\relax }}{6}{}\protected@file@percent }
+\newlabel{tab:spmv_exec_times}{{I}{6}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}System Description and Experimental Set-up}{6}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-A}}System Description}{6}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces System details\relax }}{6}{}\protected@file@percent }
+\newlabel{tab:system_description}{{II}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\mbox  {V-B}}Dataset description}{6}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {VI}Experimental Results}{6}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Shared memory speedup\relax }}{6}{}\protected@file@percent }
+\newlabel{fig:wpr_shared_speedup}{{5}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces TPR optimized speedup\relax }}{6}{}\protected@file@percent }
+\newlabel{fig:tpr_loop_speedup}{{6}{6}}
+\bibstyle{IEEEtran}
+\bibdata{references}
+\bibcite{chen2009esb}{1}
+\bibcite{kourtis2008csrp}{2}
+\bibcite{liu2015csr5}{3}
+\bibcite{bell2008efficient}{4}
+\bibcite{anzt2017designing}{5}
+\bibcite{madduri2019spmv}{6}
+\bibcite{matrixmarketmmio}{7}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Execution Time vs Matrix Sparsity\relax }}{7}{}\protected@file@percent }
+\newlabel{fig:spvmexample}{{7}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {VII}Conclusions}{7}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{References}{7}{}\protected@file@percent }
+\gdef \@abspage@last{7}

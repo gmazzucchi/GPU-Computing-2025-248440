@@ -124,15 +124,21 @@ In addition to memory optimizations, \textbf{loop unrolling} can be applied. Thi
 
 SpMV is a classic problem in parallel computing, and it is challenging due to \textbf{irregular memory access}. To address this, solution have been attempted. Chen and other researchers developed the ESB format, which groups nonzeros into blocks based on matrix structure. This improves memory access and \textbf{GPU utilization} \cite{chen2009esb}. Kourtis and other researchers proposed combining different optimization steps like compressing indices and reordering rows to better use memory and threads. Their method works well across different GPUs as paper \cite{kourtis2008csrp} reports. Liu and Vinter introduced CSR5, a version of the CSR format that splits the matrix into small tiles and adds metadata to help each GPU thread work more efficiently. CSR5 improves \textbf{parallelism} and reduces waiting time between threads \cite{liu2015csr5}. These formats aim to make SpMV faster by making better use of GPU \textbf{memory bandwidth} and computing power.
 
-Another class of optimizations focuses on staging parts of the input vector in \textbf{shared memory} to reduce redundant memory accesses. This is useful in particolar when the nonzero column indices are localized or clustered. Bell and Garland proposed warp-centric SpMV, showing that assigning one warp per row can better balance work and enable coalesced memory access \cite{bell2008efficient}, which is the strategy I optimized in this final deliverable. More recent work by Anzt et al. explored performance bounds for sparse matrix kernels and highlighted the benefits of caching input vector values in shared memory for certain matrix patterns \cite{anzt2017designing}. The idea is that when several threads access neighboring elements of the input vector, caching those elements can improve speed. This technique is also supported by NVIDIA's cuSPARSE and CUTLASS libraries, which internally implement shared memory buffering. Using shared memory doesn't always help, but it can speed things up a lot for matrices where most nonzero values are close to the diagonal \cite{madduri2019spmv}.
+Another class of optimizations focuses on staging parts of the input vector in \textbf{shared memory} to reduce redundant memory accesses. This is useful in particolar when the nonzero column indices are localized or clustered. Bell and Garland proposed warp-centric SpMV, showing that assigning one warp per row can better balance work and enable coalesced memory access \cite{bell2008efficient}. More recent work by Anzt et al. explored performance bounds for sparse matrix kernels and highlighted the benefits of caching input vector values in shared memory for certain matrix patterns \cite{anzt2017designing}. The idea is that when several threads access neighboring elements of the input vector, caching those elements can improve speed. This technique is also supported by NVIDIA's cuSPARSE and CUTLASS libraries, which internally implement shared memory buffering. Using shared memory doesn't always help, but it can speed things up a lot for matrices where most nonzero values are close to the diagonal \cite{madduri2019spmv}.
 
 \section{Methodology and Contributions}\label{sec:methodology}
 
-I organized the work in this way. I started from the strategy used in Deliverable 1, then using thread per row for sparse arrays and warp per row for relatively dense arrays. Of these strategies, for complete clarity, I attach the pseudocode in the algorithm ~\ref{simplethread} and algorithm ~\ref{simplewarp}. After that I tried to apply improvements by reasoning about possible inefficiencies particularly related to the memory accesses described in section I.
+For Deliverable 1, I used thread per row for sparse arrays and warp per row for relatively dense arrays. Of these strategies, for complete clarity, I attach the pseudocode in the algorithm ~\ref{simplethread} and algorithm ~\ref{simplewarp}. After that I tried to apply improvements by reasoning about possible inefficiencies particularly related to the memory accesses described in section I.
 
-As the first deliverable, I used the MMIO library~\cite{matrixmarketmmio} to parse matrices in Matrix Market format and \textbf{the Eigen library to verify the correctness of the results}. To measure how long CUDA kernels take to run, I used a function called \texttt{profile\_kernel}, that internally calls CUDA events to profile the kernels. I do a \textbf{startup warmup} when I start the program and compute \textbf{geometric mean} over more kernel runs to prove robustness of the results. Unfortunately, I could not successfully run the \texttt{ncu} program on the University Cluster, so I profiled my implementation with \texttt{nsys}, knowing well however the limitations of the latter program when compared to the former.
+As the first deliverable, I used the MMIO library~\cite{matrixmarketmmio} to parse matrices in Matrix Market format and \textbf{the Eigen library to verify the correctness of the results}. To measure how long CUDA kernels take to run, I used a function called \texttt{profile\_kernel}, that internally calls CUDA events to profile the kernels. I do a \textbf{startup warmup} when I start the program and compute \textbf{geometric mean} over more kernel runs to prove robustness of the results. Unfortunately, I could not successfully run the \texttt{ncu} program on the University Cluster due to a permission error:
 
-Regarding the actual kernel function, as the first deliverable, the SpMV using Thread-per-Row parallelization assigns one CUDA thread to each matrix row. Each thread computes the dot product between that row's non-zero elements and the input vector, storing the result in the output vector.
+\vspace{0.3cm}
+\texttt{==ERROR== ERR\_NVGPUCTRPERM - The user does not have permission to access NVIDIA GPU Performance Counters on the target device 0. For instructions on enabling permissions and to get more information see}
+\vspace{0.3cm}
+
+For this reason, I profiled my implementation with \texttt{nsys}, knowing well however the limitations of the latter program when compared to the former.
+
+Regarding the actual kernel function, as the first deliverable, the SpMV using Thread-per-Row parallelization (algorithm ~\ref{simplethread}) assigns one CUDA thread to each matrix row. Each thread computes the dot product between that row's non-zero elements and the input vector, storing the result in the output vector.
 \begin{algorithm}[ht]
     \caption{SpMV using Thread-per-Row parallelization}
     \label{simplethread}
@@ -150,7 +156,7 @@ Regarding the actual kernel function, as the first deliverable, the SpMV using T
     \end{algorithmic}
 \end{algorithm}
 
-Parallelization using Warp-per-Row, on other hand, maps one warp (32 threads) to each matrix row. Each thread computes partial dot products by iterating over different elements of the row. The partial results are then summed using intra-warp shuffle reduction. Finally, thread 0 in each warp writes the result to the output vector.
+Parallelization using Warp-per-Row (algorithm ~\ref{simplewarp}), on other hand, maps one warp (32 threads) to each matrix row. Each thread computes partial dot products by iterating over different elements of the row. The partial results are then summed using intra-warp shuffle reduction. Finally, thread 0 in each warp writes the result to the output vector.
 
 \begin{algorithm}[ht]
 \caption{SpMV using Warp-per-Row parallelization}
@@ -180,11 +186,11 @@ Parallelization using Warp-per-Row, on other hand, maps one warp (32 threads) to
 
 \subsection{Thread-per-Row with Loop Unrolling and \texttt{\_\_ldg()} Read-Only Cache}
 
-The kernel initializes an accumulator \texttt{sum = 0.0} and iterates over the non-zero elements of the row. To improve performance, the loop is \textbf{unrolled by a factor of 4}. This reduces loop control overhead and helps the compiler generate more efficient instructions. The implementation is very similar to the baseline and its purpose is to see how much impact these strategies alone actually have.
+The kernel (algorithm ~\ref{tpr_opt}) initializes an accumulator \texttt{sum = 0.0} and iterates over the non-zero elements of the row. To improve performance, the loop is \textbf{unrolled by a factor of 4}. This reduces loop control overhead and helps the compiler generate more efficient instructions. The implementation is very similar to the baseline and its purpose is to see how much impact these strategies alone actually have.
 
 \subsection{Warp-per-Row with Shared Memory Caching}
 
-As any warp per row strategies, every row is processed by a group of \textbf{32 threads}. To speed up the calculation, the kernel tries to load part of the input vector into fast shared memory. It first finds the smallest and largest column indices used in that row. This tells us what part (or tile) of the vector we need. \textbf{If this tile is small enough (1024 or fewer values), the warp loads it into shared memory}. For the tile size I chose 8KB to be conservative enough and support a variety of GPUs, but it can be easily tuned accordingly to the hardware specification. Then, instead of reading from global memory (which is slower), the warp reads from shared memory. This makes the multiplication faster. Each thread in the warp computes part of the sum, and then they combine their results using warp shuffle instructions. In the end, one thread writes the final result to the output vector.
+As any warp per row strategies, every row is processed by a group of \textbf{32 threads}. To speed up the calculation, the kernel (algorithm ~\ref{wpr_opt}) tries to load part of the input vector into fast shared memory. It first finds the smallest and largest column indices used in that row. This tells us what part (or tile) of the vector we need. \textbf{If this tile is small enough (1024 or fewer values), the warp loads it into shared memory}. For the tile size I chose 8KB to be conservative enough and support a variety of GPUs, but it can be easily tuned accordingly to the hardware specification. Then, instead of reading from global memory (which is slower), the warp reads from shared memory. This makes the multiplication faster. Each thread in the warp computes part of the sum, and then they combine their results using warp shuffle instructions. In the end, one thread writes the final result to the output vector.
 
 \subsection{Profiling}
 
@@ -199,6 +205,7 @@ As I mentioned earlier, since \texttt{ncu} was not available, I also profiled th
 
 \begin{algorithm*}[ht]
     \caption{Thread-per-Row SpMV with Loop Unrolling and Read-Only Cache}
+    \label{tpr_opt}
     \begin{algorithmic}[1]
     \Procedure{ThreadPerRowSpMV}{CSR matrix $(row\_ptr, col\_idx, values)$, input vector $x$, output vector $y$}
         \For{each thread assigned to a row $i$}
@@ -219,7 +226,8 @@ As I mentioned earlier, since \texttt{ncu} was not available, I also profiled th
 \end{algorithm*}
 
 \begin{algorithm*}[ht]
-    \caption{Warp-per-Row SpMV with Shared Memory Tiling}
+    \caption{Warp-per-Row SpMV with Shared Memory}
+    \label{wpr_opt}
     \begin{algorithmic}[1]
     \Procedure{WarpPerRowSpMVShared}{CSR matrix $(row\_ptr, col\_idx, values)$, input vector $x$, output vector $y$}
         \For{each warp assigned to a row $i$}
@@ -314,8 +322,7 @@ torso1 & 116158 & 116158 & 8516501 & \xmark & biomedical & 67.24 & 0.19 & 1.14 &
 
 \subsection{System Description}
 
-As the University cluster has been inaccessible for a long time, and intermittently at that, I used also the GPU available on my Ubuntu 22.04 Linux system to work regularly on the project.
-The data collected, however, has been gathered exclusively from the University cluster (edu01 or edu02 does not depend on me).
+As the University cluster has been inaccessible for some periods of time (and I had problems with VPN), I used also the GPU available on my Ubuntu 22.04 Linux system to work regularly on the project. The data collected, however, has been gathered exclusively from the University cluster (edu01 or edu02 does not depend on me).
 
 \begin{table}[ht]
     \centering
@@ -338,8 +345,7 @@ The data collected, however, has been gathered exclusively from the University c
 
 \subsection{Dataset description}
 
-Exactly as the first deliverable, I used around twenty matrices downloaded from \texttt{https://sparse.tamu.edu/} and converted them into CSR format. The matrices were selected to cover a wide range of types and sizes, in order to test the performance of GPU implementations. In particular, the most interesting matrices are pkustk14, cage14, wiki-Talk, and great-britain\_osm. The first two are relatively dense, with a high ratio of nonzeros to total elements. On the other hand, the latter two are especially sparse. The results will show significant performance differences between these cases.
-
+Exactly as the first deliverable, I used around twenty matrices downloaded from \texttt{https://sparse.tamu.edu/} and converted them into CSR format. The matrices were selected to cover a wide range of types and sizes, in order to test the performance of GPU implementations. In particular, the most interesting matrices are pkustk14, cage14, ins2 and great-britain\_osm. The first two are relatively dense, with a high ratio of nonzeros to total elements. On the other hand, the latter two are especially sparse.
 
 \section{Experimental Results}
 
@@ -357,9 +363,6 @@ The \textbf{Warp-Per-Row} strategy with shared memory performs very well, especi
 
 Shared memory is most effective when the nonzero elements in a row are close together. In these cases, we can take advantage of data locality to make memory access much faster. However, if the rows are very irregular or too much data is needed (more than 48--96\,KB per streaming multiprocessor), shared memory may not help and can even slow things down.
 
-
-
-
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.95\linewidth]{speedupTPR.png}
@@ -367,6 +370,7 @@ Shared memory is most effective when the nonzero elements in a row are close tog
     \label{fig:tpr_loop_speedup}
 \end{figure}
 
+\newpage
 In contrast, the \textbf{Thread-Per-Row (TPR)} approach does not scale well. It has problems with memory access patterns and does not fully use the parallel power of the GPU. Even with optimizations, TPR performs poorly on matrices with rows of very different lengths or extremely large sizes, like \texttt{great-britain\_osm}. Some techniques like loop unrolling and using the read-only cache also did not improve performance. One possible reason is that modern GPUs, like the NVIDIA L40S and A30, may already apply similar optimizations automatically. These GPUs have deep pipelines, which should benefit from loop unrolling, but in practice, it did not help much in this case.
 
 

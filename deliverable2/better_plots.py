@@ -90,7 +90,7 @@ def plot_grouped_bar(metric_name, filename, logscale=True):
         ax.bar(x + i * width, data_matrix[:, i], width, label=labels[i])
 
     ax.set_ylabel(metric_name)
-    ax.set_title(f"{metric_name} on torso1")
+    ax.set_title(f"{metric_name}")
     ax.set_xticks(x + width * (num_methods - 1) / 2)
     ax.set_xticklabels(datasets, rotation=45, ha="right")
 
